@@ -204,19 +204,22 @@ body {
    ═══════════════════════════════════════════════════════════════ */
 
 .diagram {
-    background: #1e1e1e;
+    background: #0d1117;
     padding: 2rem;
     border-radius: 15px;
     overflow-x: auto;
     margin-bottom: 2rem;
+    border: 1px solid #30363d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .diagram pre {
-    color: #d4d4d4;
-    font-family: 'Courier New', monospace;
-    font-size: 0.85rem;
-    line-height: 1.5;
+    color: #ffffff;
+    font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
     margin: 0;
+    font-weight: 500;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -293,22 +296,45 @@ body {
    ═══════════════════════════════════════════════════════════════ */
 
 .code-block {
-    background: #1e1e1e;
+    background: #0d1117;
     border-radius: 10px;
     padding: 1.5rem;
     overflow-x: auto;
     margin: 1.5rem 0;
+    border: 1px solid #30363d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .code-block pre {
     margin: 0;
+    color: #ffffff;
+    font-weight: 500;
 }
 
 .code-block code {
-    font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #d4d4d4;
+    font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* Garantir texto branco em TODOS os blocos de código */
+pre {
+    color: #ffffff !important;
+    background: #0d1117;
+    padding: 1.5rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    border: 1px solid #30363d;
+}
+
+.card pre {
+    color: #ffffff !important;
+    background: #0d1117;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #30363d;
 }
 
 /* ═══════════════════════════════════════════════════════════════
