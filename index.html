@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Specialists Showcase - Enterprise-Grade Solutions with ROI up to 367x">
+    <meta name="keywords" content="ai, enterprise, roi, websocket, mlops, security, confidential computing">
+    <meta name="author" content="Demóstenes Silva">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="AI Specialists Showcase - Enterprise Solutions">
+    <meta property="og:description" content="3 Enterprise-Grade AI Solutions | ROI up to 367x | Production-Ready Code">
+    
+    <title>AI Specialists Showcase | Enterprise-Grade Solutions</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .hero-stat {
+            text-align: center;
+        }
+        
+        .hero-stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .hero-stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        /* Specialists Grid */
+        .specialists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .specialist-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .specialist-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .specialist-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .specialist-icon {
+            font-size: 3rem;
+        }
+        
+        .specialist-title {
+            flex: 1;
+        }
+        
+        .specialist-title h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .specialist-title p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .specialist-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .badge {
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        
+        .badge-score {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        
+        .badge-roi {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .badge-enterprise {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+        
+        .specialist-description {
+            margin-bottom: 1.5rem;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .specialist-highlights {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .specialist-highlights li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #555;
+        }
+        
+        .specialist-highlights li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .specialist-cta {
+            display: inline-block;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+        
+        .specialist-cta:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Footer */
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            color: #666;
+        }
+        
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .specialists-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>🤖 AI Specialists Showcase</h1>
+            <p class="subtitle">Enterprise-Grade Solutions with Proven ROI</p>
+            
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">3</div>
+                    <div class="hero-stat-label">AI Specialists</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">367x</div>
+                    <div class="hero-stat-label">Max ROI</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">5,000+</div>
+                    <div class="hero-stat-label">Lines of Code</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">100%</div>
+                    <div class="hero-stat-label">Production-Ready</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Specialists Grid -->
+        <div class="specialists-grid">
+            <!-- Card 1: Developer (WebSocket) -->
+            <a href="specialists/developer-websocket.html" class="specialist-card">
+                <div class="specialist-header">
+                    <div class="specialist-icon">💻</div>
+                    <div class="specialist-title">
+                        <h2>Developer</h2>
+                        <p>WebSocket Real-Time Notifications</p>
+                    </div>
+                </div>
+                
+                <div class="specialist-badges">
+                    <span class="badge badge-score">Score: 9.8/10 ⭐⭐⭐⭐⭐</span>
+                    <span class="badge badge-roi">ROI: 13.1x</span>
+                    <span class="badge badge-enterprise">Enterprise++</span>
+                </div>
+                
+                <p class="specialist-description">
+                    Sistema de notificações em tempo real usando WebSockets com Redis Pub/Sub, 
+                    escalável para 1M+ conexões concorrentes com entrega garantida e reconexão automática.
+                </p>
+                
+                <ul class="specialist-highlights">
+                    <li>ROI 13.1x | Payback em 27 dias</li>
+                    <li>1M+ conexões concorrentes</li>
+                    <li>Latência p99 < 250ms</li>
+                    <li>TypeScript + Redis + PostgreSQL</li>
+                    <li>Outbox Pattern + Pub/Sub</li>
+                    <li>1,821 linhas de código + docs</li>
+                </ul>
+                
+                <div class="specialist-cta">
+                    Ver Detalhes Completos →
+                </div>
+            </a>
+            
+            <!-- Card 2: DevOps (MLOps) -->
+            <a href="specialists/devops-mlops.html" class="specialist-card">
+                <div class="specialist-header">
+                    <div class="specialist-icon">🔧</div>
+                    <div class="specialist-title">
+                        <h2>DevOps Engineer</h2>
+                        <p>MLOps Production Pipeline</p>
+                    </div>
+                </div>
+                
+                <div class="specialist-badges">
+                    <span class="badge badge-score">Score: 9.8/10 ⭐⭐⭐⭐⭐</span>
+                    <span class="badge badge-roi">ROI: 32.6x</span>
+                    <span class="badge badge-enterprise">Enterprise++</span>
+                </div>
+                
+                <p class="specialist-description">
+                    Pipeline MLOps completo com GitHub Actions CI/CD/CT, KServe para serving, 
+                    monitoramento com Prometheus/Grafana e segurança enterprise-grade.
+                </p>
+                
+                <ul class="specialist-highlights">
+                    <li>ROI 32.6x | Payback em 11 dias</li>
+                    <li>SLO 99.95% uptime</li>
+                    <li>GitHub Actions + KServe + MLflow</li>
+                    <li>GPU autoscaling + Canary deploy</li>
+                    <li>Evidently AI drift detection</li>
+                    <li>Custo otimizado: $478/mês</li>
+                </ul>
+                
+                <div class="specialist-cta">
+                    Ver Detalhes Completos →
+                </div>
+            </a>
+            
+            <!-- Card 3: Security (Confidential Computing) -->
+            <a href="specialists/security-confidential-computing.html" class="specialist-card">
+                <div class="specialist-header">
+                    <div class="specialist-icon">🔒</div>
+                    <div class="specialist-title">
+                        <h2>Security Architect</h2>
+                        <p>Confidential Computing Cross-Cloud</p>
+                    </div>
+                </div>
+                
+                <div class="specialist-badges">
+                    <span class="badge badge-score">Score: 9.9/10 ⭐⭐⭐⭐⭐</span>
+                    <span class="badge badge-roi">ROI: 367x 🔥</span>
+                    <span class="badge badge-enterprise">Enterprise+++</span>
+                </div>
+                
+                <p class="specialist-description">
+                    Arquitetura de Confidential Computing cross-cloud (AWS Nitro, Azure SEV-SNP, GCP SEV) 
+                    com attested TLS, HashiCorp Vault e Red Team Exercise completo.
+                </p>
+                
+                <ul class="specialist-highlights">
+                    <li>ROI 367x | Payback < 1 dia 🚀</li>
+                    <li>Zero Trust de Hardware</li>
+                    <li>AWS Nitro + Azure SEV-SNP + GCP</li>
+                    <li>HashiCorp Vault (unified KMS)</li>
+                    <li>Red Team Exercise documentado</li>
+                    <li>Protege $37.5M em risco</li>
+                </ul>
+                
+                <div class="specialist-cta">
+                    Ver Detalhes Completos →
+                </div>
+            </a>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>🚀 Open Source Showcase</strong></p>
+            <p style="margin-top: 0.5rem;">Enterprise-Grade AI Architecture Examples</p>
+            <p style="margin-top: 1rem;">
+                © 2024 Demóstenes Silva | 
+                <a href="https://github.com/demostenessilva" target="_blank">GitHub</a> | 
+                <a href="https://linkedin.com/in/demostenessilva" target="_blank">LinkedIn</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+
