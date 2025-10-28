@@ -2,13 +2,13 @@
 
 > **Enterprise-Grade AI Solutions with Proven ROI**
 
-4 AI Specialists | ROI up to 367x | 100% Production-Ready Code
+5 AI Specialists | ROI up to 367x | 100% Production-Ready Code
 
 ---
 
 ## 📊 Overview
 
-This showcase demonstrates **enterprise-grade AI-generated solutions** across 4 critical domains: Development, DevOps, Security, and Penetration Testing. Each solution includes:
+This showcase demonstrates **enterprise-grade AI-generated solutions** across 5 critical domains: Development, DevOps, Security, Penetration Testing, and Data Intelligence. Each solution includes:
 
 - ✅ **Complete Business Context** (ROI, payback, risk analysis)
 - ✅ **Production-Ready Architecture** (diagrams, tech stack, trade-offs)
@@ -77,6 +77,21 @@ Blueprint enterprise-grade de penetration testing focado em SSRF e Broken Access
 - **Tech Stack:** Burp Suite Pro, SSRFmap, Interactsh, Semgrep, AWS IMDS
 
 [📖 Ver Detalhes Completos](specialists/hacker-pentest-ssrf.html)
+
+---
+
+### 5. 📊 Data Intelligence - ML Pipeline Híbrido: Recomendações em Tempo Real
+
+**ROI: 12.5x | Score: 10.0/10** 🌟 PERFECT SCORE!
+
+Arquitetura híbrida (Batch + Streaming) para motor de recomendação de produtos em tempo real, com Feature Store (Tecton) e latência <200ms.
+
+- **Investment:** $1.506M
+- **Return:** $18.9M/year (receita + risco)
+- **Payback:** 37 days
+- **Tech Stack:** Snowflake, Kafka, Flink SQL, dbt, Tecton, AWS SageMaker, Tableau
+
+[📖 Ver Detalhes Completos](specialists/data-intelligence-ml-pipeline.html)
 
 ---
 

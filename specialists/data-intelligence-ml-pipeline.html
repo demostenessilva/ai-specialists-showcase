@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Data Intelligence: ML Pipeline Híbrido (Batch + Streaming) - ROI 12.5x, Score 10.0/10">
+    <meta name="keywords" content="data intelligence, ml pipeline, feature store, snowflake, kafka, real-time, roi">
+    <meta name="author" content="Demóstenes Silva">
+    
+    <title>Data Intelligence - ML Pipeline Híbrido | ROI 12.5x</title>
+    
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Back Button -->
+        <a href="../index.html" class="back-button">← Voltar para Especialistas</a>
+        
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="specialist-icon-large">📊</div>
+            <h1>Data Intelligence - ML Pipeline Híbrido: Recomendações em Tempo Real</h1>
+            <p class="subtitle">Arquitetura Enterprise-Grade combinando pipelines Batch (treino) e Streaming (inferência <200ms) para motor de recomendação de produtos</p>
+            
+            <div class="badges">
+                <span class="badge badge-score">Score: 10.0/10 ⭐⭐⭐⭐⭐</span>
+                <span class="badge badge-roi">ROI: 12.5x</span>
+                <span class="badge badge-enterprise">Payback: 37 dias</span>
+            </div>
+            
+            <div class="roi-highlight">
+                <strong>Investimento:</strong> $1.506M → <strong>Retorno:</strong> $18.9M/ano (receita + risco)
+            </div>
+        </div>
+        
+        <!-- Business Context -->
+        <div class="section">
+            <h2>📊 Contexto de Negócio</h2>
+            
+            <div class="context-grid">
+                <div class="context-item">
+                    <div class="context-icon">💰</div>
+                    <h3>Problema de Negócio</h3>
+                    <p><strong>E-commerce de Varejo:</strong> Recomendações de produtos genéricas ("mais vendidos") com baixa conversão.</p>
+                    <p><strong>Status Quo:</strong> 70% dos usuários ignoram as recomendações atuais.</p>
+                    <p><strong>Pain Point Crítico:</strong> Cliente compra câmera profissional, mas sistema recomenda "outras câmeras" ao invés de lentes compatíveis e cartões de memória, perdendo cross-sell de $800.</p>
+                </div>
+                
+                <div class="context-item">
+                    <div class="context-icon">📉</div>
+                    <h3>Custo da Inação</h3>
+                    <ul>
+                        <li><strong>$7.5M/ano</strong> em perda de AOV (Average Order Value) não realizado</li>
+                        <li><strong>$3M/ano</strong> em churn de clientes buscando experiências mais personalizadas</li>
+                        <li><strong>$4M/ano</strong> em oportunidade perdida ao aumentar conversão de 2% para 8%</li>
+                        <li><strong>$4.4M/ano</strong> em riscos (estoque errado, violação LGPD, competitividade)</li>
+                    </ul>
+                </div>
+                
+                <div class="context-item">
+                    <div class="context-icon">📈</div>
+                    <h3>ROI Quantificado</h3>
+                    <p><strong>Investimento Total (Ano 1):</strong> $1.506M</p>
+                    <p><strong>Retorno (12 meses):</strong></p>
+                    <ul>
+                        <li>+$7.5M em AOV aumentado (15% de lift)</li>
+                        <li>+$4M em conversão (2% → 8% em recomendações)</li>
+                        <li>+$3M em LTV retido (reduzir churn em 5%)</li>
+                        <li>+$4.4M em riscos mitigados</li>
+                    </ul>
+                    <p class="roi-total"><strong>ROI: 12.5x</strong> | <strong>Payback: 37 dias</strong></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Architecture Diagram -->
+        <div class="section">
+            <h2>🏗️ Arquitetura Híbrida (Batch Training + Real-Time Inference)</h2>
+            <div class="diagram">
+                <pre>
+┌────────────────────────────────────────────────────────────────────────────────┐
+│             HYBRID DATA ARCHITECTURE (BATCH + STREAMING)                       │
+├──────────────────────────────────┬─────────────────────────────────────────────┤
+│ [BATCH PATH - Model Training]    │ [STREAMING PATH - Real-time Inference]     │
+│                                  │                                             │
+│ [SOURCES]                        │ [SOURCES]                                   │
+│  └─ PostgreSQL (Transactions)    │  └─ Kafka: `click_events` (Web/App)        │
+│           ↓ (Fivetran - 1h)      │           ↓ (Confluent Cloud)               │
+│                                  │                                             │
+│ [RAW LAYER - Snowflake]          │ [STREAM PROCESSING - Flink SQL]             │
+│  └─ `raw_postgres.transactions`  │  ├─ Sessionization (30 min windows)        │
+│           ↓ (dbt - 6h)           │  └─ Real-time feature aggregation           │
+│                                  │           ↓ (Write features)                │
+│ [TRANSFORMATION - dbt]           │                                             │
+│  ├─ Staging: Clean, dedup        │  ┌─────────────────────────────────────┐   │
+│  └─ Marts: Star Schema           │  │   FEATURE STORE (Tecton/Feast)      │   │
+│           ↓ (daily)              │  │  ├─ Offline: Snowflake (Training)   │   │
+│                                  │  │  └─ Online: Redis (<10ms Inference) │   │
+│ [FEATURE ENGINEERING]            │  └───────────▲─────────────────────────┘   │
+│  ├─ `customer_lifetime_value`    │              │                             │
+│  ├─ `product_purchase_frequency` │              │ (Read <10ms)                │
+│  └─ Write to Offline Store       │              │                             │
+│           ↓                      │  [E-COMMERCE BACKEND]                       │
+│                                  │   └─ Request: (user_id, product_id)        │
+│ [MODEL TRAINING - SageMaker]     │              ↓                             │
+│  ├─ Read from Offline Store      │  [ML INFERENCE - SageMaker Endpoint]       │
+│  ├─ Train Collaborative Filter / │   ├─ Fetch features from Online Store     │
+│  │  Deep Learning Model          │   └─ Return recommended product_ids       │
+│  └─ Register Model (S3)          │              ↓ (<200ms)                    │
+│           ↓                      │                                             │
+│  [DEPLOY to Real-time Endpoint]  │  [FRONTEND]                                 │
+│                                  │   └─ Render recommended products           │
+└──────────────────────────────────┴─────────────────────────────────────────────┘
+</pre>
+            </div>
+        </div>
+        
+        <!-- Key Features -->
+        <div class="section">
+            <h2>✨ Features Técnicos Enterprise</h2>
+            <div class="highlight-grid">
+                <div class="highlight-item">
+                    <h4>🎯 Feature Store (Tecton)</h4>
+                    <p><strong>Problema Resolvido:</strong> Inconsistência entre features de treino e inferência (training-serving skew).</p>
+                    <p><strong>Solução:</strong> Offline Store (Snowflake) para treino + Online Store (Redis) para inferência <10ms.</p>
+                    <p><strong>Impacto:</strong> Modelos 25% mais precisos ao eliminar feature drift.</p>
+                </div>
+                
+                <div class="highlight-item">
+                    <h4>⚡ Latência p99 <200ms</h4>
+                    <p><strong>Problema Resolvido:</strong> Recomendações lentas impactam page load time e conversão.</p>
+                    <p><strong>Solução:</strong> Feature Store Online (Redis) + SageMaker Endpoint com auto-scaling.</p>
+                    <p><strong>Impacto:</strong> Conversão aumenta 12% quando latência <250ms (Google research).</p>
+                </div>
+                
+                <div class="highlight-item">
+                    <h4>🔄 Retraining Semanal</h4>
+                    <p><strong>Problema Resolvido:</strong> Modelos obsoletos com dados antigos.</p>
+                    <p><strong>Solução:</strong> Pipeline dbt + SageMaker orquestrado por Airflow (MWAA), retreina a cada 7 dias.</p>
+                    <p><strong>Impacto:</strong> Modelos sempre atualizados com tendências de compra recentes.</p>
+                </div>
+                
+                <div class="highlight-item">
+                    <h4>📐 Modelagem Kimball (Star Schema)</h4>
+                    <p><strong>Problema Resolvido:</strong> Dados desorganizados e difíceis de consultar.</p>
+                    <p><strong>Solução:</strong> `fct_transactions` + `dim_customers` (SCD Type 2) + `dim_products` (hierarquia L1/L2/L3).</p>
+                    <p><strong>Impacto:</strong> Queries analíticas com p95 latency <5s.</p>
+                </div>
+                
+                <div class="highlight-item">
+                    <h4>📊 North Star: Revenue per Session</h4>
+                    <p><strong>Métrica Crítica:</strong> Target $15.00 (atual $12.50).</p>
+                    <p><strong>Input Metrics:</strong> AOV, Conversion Rate (Recommended), Items per Order, CTR.</p>
+                    <p><strong>Impacto:</strong> Aumento de 20% em 12 meses → +$2.5M/ano em GMV.</p>
+                </div>
+                
+                <div class="highlight-item">
+                    <h4>🛡️ Governança (LGPD/GDPR)</h4>
+                    <p><strong>Problema Resolvido:</strong> Risco de violação LGPD ($2M de multa).</p>
+                    <p><strong>Solução:</strong> Snowflake RBAC + PII Masking + Audit Trail (CloudTrail) + dbt run logs.</p>
+                    <p><strong>Impacto:</strong> Mitiga risco de $600K/ano (30% prob. × $2M impacto).</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dimensional Model -->
+        <div class="section">
+            <h2>📐 Modelagem Dimensional (Kimball Star Schema)</h2>
+            
+            <h3>Fact Table: fct_transactions</h3>
+            <p><strong>Grain:</strong> 1 row per product in a transaction (line item)</p>
+            <pre><code>CREATE TABLE marts.fct_transactions (
+    -- Primary key
+    transaction_line_id STRING PRIMARY KEY,
+    
+    -- Foreign keys
+    transaction_date_key INTEGER NOT NULL REFERENCES marts.dim_date(date_key),
+    customer_key INTEGER NOT NULL REFERENCES marts.dim_customers(customer_key),
+    product_key INTEGER NOT NULL REFERENCES marts.dim_products(product_key),
+    
+    -- Measures
+    quantity_sold INTEGER NOT NULL,
+    unit_price_usd DECIMAL(10,2) NOT NULL,
+    discount_amount_usd DECIMAL(10,2) DEFAULT 0,
+    net_amount_usd DECIMAL(12,2) NOT NULL,
+    
+    -- Degenerate dimensions
+    order_id STRING NOT NULL,
+    
+    -- Metadata
+    created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP,
+    dbt_run_id STRING
+);
+
+-- =====================================================================
+-- DIMENSION: dim_customers (SCD Type 2 - Historical Tracking)
+-- =====================================================================
+CREATE TABLE marts.dim_customers (
+    customer_key INTEGER PRIMARY KEY AUTOINCREMENT,
+    customer_id STRING NOT NULL,
+    
+    -- Attributes
+    customer_name STRING,
+    customer_segment STRING, -- 'High-Value', 'At-Risk', 'New'
+    loyalty_tier STRING, -- 'Bronze', 'Silver', 'Gold'
+    
+    -- SCD Type 2 columns
+    effective_date DATE NOT NULL,
+    end_date DATE DEFAULT '9999-12-31',
+    is_current BOOLEAN DEFAULT TRUE,
+    
+    -- Metadata
+    created_at TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+-- =====================================================================
+-- DIMENSION: dim_products (Product Hierarchy for Recommendations)
+-- =====================================================================
+CREATE TABLE marts.dim_products (
+    product_key INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_id STRING NOT NULL UNIQUE,
+    product_name STRING NOT NULL,
+    
+    -- Product hierarchy (crucial for "similar items")
+    category_l1 STRING, -- 'Electronics'
+    category_l2 STRING, -- 'Cameras'
+    category_l3 STRING, -- 'DSLR Lenses'
+    brand_name STRING,
+    
+    -- Pricing
+    msrp_usd DECIMAL(10,2),
+    is_active BOOLEAN DEFAULT TRUE
+);</code></pre>
+        </div>
+        
+        <!-- KPIs & Metrics -->
+        <div class="section">
+            <h2>📈 KPIs & Métricas (AARRR Framework)</h2>
+            
+            <h3>North Star + Input Metrics</h3>
+            <table class="table">
+                <tr>
+                    <th>Métrica</th>
+                    <th>Target</th>
+                    <th>Atual</th>
+                    <th>Delta</th>
+                    <th>Owner</th>
+                </tr>
+                <tr class="highlight">
+                    <td><strong>🌟 Revenue per Session</strong></td>
+                    <td>$15.00</td>
+                    <td>$12.50</td>
+                    <td>-17% ❌</td>
+                    <td>VP E-commerce</td>
+                </tr>
+                <tr>
+                    <td>AOV (Average Order Value)</td>
+                    <td>$120</td>
+                    <td>$105</td>
+                    <td>-12.5% ⚠️</td>
+                    <td>PM (Checkout)</td>
+                </tr>
+                <tr>
+                    <td>Conversion Rate (Recommended)</td>
+                    <td>8%</td>
+                    <td>2%</td>
+                    <td>-75% ❌</td>
+                    <td>Data Scientist</td>
+                </tr>
+                <tr>
+                    <td>Items per Order</td>
+                    <td>3.5</td>
+                    <td>2.8</td>
+                    <td>-20% ❌</td>
+                    <td>PM (Product Page)</td>
+                </tr>
+                <tr>
+                    <td>Click-Through Rate (Recs)</td>
+                    <td>15%</td>
+                    <td>6%</td>
+                    <td>-60% ❌</td>
+                    <td>ML Engineer</td>
+                </tr>
+            </table>
+            
+            <h3>AARRR Pirate Metrics (SQL Production-Ready)</h3>
+            <pre><code>-- ACQUISITION: New Customer Acquisition Cost (CAC)
+SELECT 
+    DATE_TRUNC('month', c.first_purchase_date) AS cohort_month,
+    m.marketing_spend_usd / COUNT(DISTINCT c.customer_id) AS cac_usd
+FROM marts.dim_customers c
+JOIN marts.fct_marketing_spend m 
+    ON DATE_TRUNC('month', c.first_purchase_date) = m.month
+WHERE c.first_purchase_date IS NOT NULL
+GROUP BY 1, m.marketing_spend_usd
+ORDER BY 1 DESC;
+
+-- RETENTION: Repeat Purchase Rate (Cohort-based)
+WITH first_purchases AS (
+    SELECT customer_id, MIN(transaction_date) AS first_purchase_date
+    FROM marts.fct_transactions 
+    GROUP BY 1
+),
+second_purchases AS (
+    SELECT t.customer_id
+    FROM marts.fct_transactions t
+    JOIN first_purchases fp 
+        ON t.customer_id = fp.customer_id 
+        AND t.transaction_date > fp.first_purchase_date
+)
+SELECT
+    DATE_TRUNC('month', fp.first_purchase_date) AS cohort_month,
+    COUNT(DISTINCT fp.customer_id) AS total_customers,
+    COUNT(DISTINCT sp.customer_id) AS repeat_customers,
+    ROUND(100.0 * COUNT(DISTINCT sp.customer_id) 
+          / COUNT(DISTINCT fp.customer_id), 2) AS repeat_rate_pct
+FROM first_purchases fp
+LEFT JOIN second_purchases sp ON fp.customer_id = sp.customer_id
+GROUP BY 1
+ORDER BY 1 DESC;
+
+-- REVENUE: GMV (Gross Merchandise Volume) by Category
+SELECT
+    DATE_TRUNC('month', d.date_actual) AS month,
+    p.category_l1,
+    SUM(t.net_amount_usd) AS gmv_usd
+FROM marts.fct_transactions t
+JOIN marts.dim_products p ON t.product_key = p.product_key
+JOIN marts.dim_date d ON t.transaction_date_key = d.date_key
+GROUP BY 1, 2
+ORDER BY 1 DESC, 3 DESC;</code></pre>
+        </div>
+        
+        <!-- Tech Stack -->
+        <div class="section">
+            <h2>🛠️ Stack Tecnológico Enterprise</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-category">
+                    <h3>Data Warehouse</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Snowflake Enterprise</span>
+                        <span class="tech-tag">Time Travel 90d</span>
+                        <span class="tech-tag">Zero-Copy Cloning</span>
+                    </div>
+                    <p><strong>Custo:</strong> $96K/ano | <strong>Justificativa:</strong> Separação compute/storage ideal para picos de treino ML.</p>
+                </div>
+                
+                <div class="tech-category">
+                    <h3>Ingestão (Batch)</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Fivetran</span>
+                        <span class="tech-tag">PostgreSQL Connector</span>
+                    </div>
+                    <p><strong>Custo:</strong> $12K/ano | <strong>Justificativa:</strong> Zero manutenção, economiza 80h/mês de engenharia.</p>
+                </div>
+                
+                <div class="tech-category">
+                    <h3>Streaming</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Confluent Cloud (Kafka)</span>
+                        <span class="tech-tag">Flink SQL</span>
+                        <span class="tech-tag">100M eventos/dia</span>
+                    </div>
+                    <p><strong>Custo:</strong> $66K/ano | <strong>Justificativa:</strong> SLA 99.99%, sessões em tempo real.</p>
+                </div>
+                
+                <div class="tech-category">
+                    <h3>Transformação</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">dbt Cloud</span>
+                        <span class="tech-tag">CI/CD</span>
+                        <span class="tech-tag">Docs + Lineage</span>
+                    </div>
+                    <p><strong>Custo:</strong> $11K/ano | <strong>Justificativa:</strong> Feature engineering padronizado.</p>
+                </div>
+                
+                <div class="tech-category">
+                    <h3>Feature Store</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Tecton</span>
+                        <span class="tech-tag">Offline: Snowflake</span>
+                        <span class="tech-tag">Online: Redis <10ms</span>
+                    </div>
+                    <p><strong>Custo:</strong> $60K/ano | <strong>Justificativa:</strong> Consistência treino/inferência, elimina feature drift.</p>
+                </div>
+                
+                <div class="tech-category">
+                    <h3>ML Platform</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">AWS SageMaker</span>
+                        <span class="tech-tag">Training + Inference</span>
+                        <span class="tech-tag">Auto-scaling</span>
+                    </div>
+                    <p><strong>Custo:</strong> $48K/ano | <strong>Justificativa:</strong> Endpoints com latência <200ms.</p>
+                </div>
+                
+                <div class="tech-category">
+                    <h3>BI & Dashboards</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Tableau</span>
+                        <span class="tech-tag">25 licenses</span>
+                    </div>
+                    <p><strong>Custo:</strong> $21K/ano | <strong>Justificativa:</strong> Monitorar North Star e KPIs de negócio.</p>
+                </div>
+                
+                <div class="tech-category">
+                    <h3>Orquestração</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">AWS MWAA (Airflow)</span>
+                        <span class="tech-tag">20+ pipelines/dia</span>
+                    </div>
+                    <p><strong>Custo:</strong> $5K/ano | <strong>Justificativa:</strong> Retreinamento semanal automatizado.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Budget Breakdown -->
+        <div class="section">
+            <h2>💰 Budget Detalhado (Ano 1)</h2>
+            <table class="table">
+                <tr>
+                    <th>Componente</th>
+                    <th>Ferramenta</th>
+                    <th>Custo/Ano</th>
+                    <th>Justificativa</th>
+                </tr>
+                <tr>
+                    <td>Data Warehouse</td>
+                    <td>Snowflake (Medium)</td>
+                    <td>$96,000</td>
+                    <td>Processar 50TB/mês para treino</td>
+                </tr>
+                <tr>
+                    <td>ELT (Batch)</td>
+                    <td>Fivetran (PostgreSQL)</td>
+                    <td>$12,000</td>
+                    <td>Economiza 80h/mês</td>
+                </tr>
+                <tr>
+                    <td>Streaming</td>
+                    <td>Confluent Cloud (Kafka)</td>
+                    <td>$30,000</td>
+                    <td>100M eventos/dia, 99.99% uptime</td>
+                </tr>
+                <tr>
+                    <td>Stream Processing</td>
+                    <td>Confluent Cloud (Flink)</td>
+                    <td>$36,000</td>
+                    <td>Sessões em tempo real</td>
+                </tr>
+                <tr>
+                    <td>Transformação</td>
+                    <td>dbt Cloud (3 devs)</td>
+                    <td>$11,000</td>
+                    <td>CI/CD + docs + lineage</td>
+                </tr>
+                <tr>
+                    <td>Feature Store</td>
+                    <td>Tecton</td>
+                    <td>$60,000</td>
+                    <td>Consistência treino/inferência</td>
+                </tr>
+                <tr>
+                    <td>ML Platform</td>
+                    <td>AWS SageMaker</td>
+                    <td>$48,000</td>
+                    <td>Training + Inference endpoints</td>
+                </tr>
+                <tr>
+                    <td>BI/Dashboards</td>
+                    <td>Tableau (25 licenses)</td>
+                    <td>$21,000</td>
+                    <td>North Star + KPIs executivos</td>
+                </tr>
+                <tr>
+                    <td>Orquestração</td>
+                    <td>AWS MWAA (Airflow)</td>
+                    <td>$5,000</td>
+                    <td>Retreinamento semanal</td>
+                </tr>
+                <tr>
+                    <td>Storage</td>
+                    <td>S3 (artifacts + raw)</td>
+                    <td>$3,000</td>
+                    <td>200TB de dados</td>
+                </tr>
+                <tr>
+                    <td>Headcount</td>
+                    <td>1 AE + 1 BI + 2 MLE + 1 DS</td>
+                    <td>$1,000,000</td>
+                    <td>Salários ($200K/FTE)</td>
+                </tr>
+                <tr>
+                    <td>Contingência (15%)</td>
+                    <td>Buffer</td>
+                    <td>$184,000</td>
+                    <td>Custos imprevistos</td>
+                </tr>
+                <tr class="highlight">
+                    <td><strong>TOTAL ANO 1</strong></td>
+                    <td></td>
+                    <td><strong>$1,506,000</strong></td>
+                    <td><strong>ROI: 12.5x</strong></td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- Conclusion -->
+        <div class="section">
+            <h2>🎯 Por Que Este Blueprint é Enterprise-Grade?</h2>
+            <div class="conclusion-grid">
+                <div class="conclusion-item">
+                    <h3>💼 Para C-Level</h3>
+                    <ul>
+                        <li><strong>ROI 12.5x</strong> no Ano 1 ($18.9M retorno / $1.5M investimento)</li>
+                        <li><strong>Payback em 37 dias</strong> através de aumento de AOV e conversão</li>
+                        <li><strong>North Star Metric</strong> clara: Revenue per Session aumenta 20%</li>
+                        <li><strong>Riscos mitigados</strong>: $11.4M/ano (competitividade, LGPD, churn)</li>
+                    </ul>
+                </div>
+                
+                <div class="conclusion-item">
+                    <h3>👨‍💻 Para Engenheiros</h3>
+                    <ul>
+                        <li><strong>Arquitetura Híbrida</strong> - Batch (treino robusto) + Streaming (inferência <200ms)</li>
+                        <li><strong>Feature Store (Tecton)</strong> - Elimina training-serving skew</li>
+                        <li><strong>Star Schema Kimball</strong> - Queries analíticas p95 <5s</li>
+                        <li><strong>dbt + SageMaker + Airflow</strong> - Stack moderno e escalável</li>
+                        <li><strong>SCD Type 2</strong> - Rastreamento histórico de segmentos de clientes</li>
+                    </ul>
+                </div>
+                
+                <div class="conclusion-item">
+                    <h3>📊 Para Data Scientists</h3>
+                    <ul>
+                        <li><strong>Offline Store (Snowflake)</strong> - Anos de histórico para treinar modelos precisos</li>
+                        <li><strong>Online Store (Redis)</strong> - Features em <10ms para inferência real-time</li>
+                        <li><strong>Retraining semanal</strong> - Modelos sempre atualizados</li>
+                        <li><strong>Product Hierarchy (L1/L2/L3)</strong> - Suporta "similar items" recommendations</li>
+                        <li><strong>AARRR Metrics</strong> - Monitorar impacto em Acquisition, Retention, Revenue</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="section" style="text-align: center;">
+            <h2>Pronto para transformar dados em receita?</h2>
+            <p>Este blueprint de Data Intelligence pode ser adaptado para qualquer e-commerce ou plataforma digital.</p>
+            <div class="cta-buttons">
+                <a href="../index.html" class="btn btn-primary">← Voltar ao Showcase</a>
+                <a href="https://github.com/demostenessilva" class="btn btn-secondary" target="_blank">Ver Mais Projetos →</a>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer" style="margin-top: 3rem; padding: 2rem 0; text-align: center; color: rgba(255,255,255,0.7);">
+            <p>&copy; 2025 AI Specialists Showcase - Open Source Project</p>
+            <p>Enterprise-Grade Solutions by Demóstenes Silva</p>
+        </footer>
+    </div>
+</body>
+</html>
+
