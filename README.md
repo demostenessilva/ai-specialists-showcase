@@ -2,13 +2,13 @@
 
 > **Enterprise-Grade AI Solutions with Proven ROI**
 
-3 AI Specialists | ROI up to 367x | 100% Production-Ready Code
+4 AI Specialists | ROI up to 367x | 100% Production-Ready Code
 
 ---
 
 ## 📊 Overview
 
-This showcase demonstrates **enterprise-grade AI-generated solutions** across 3 critical domains: Development, DevOps, and Security. Each solution includes:
+This showcase demonstrates **enterprise-grade AI-generated solutions** across 4 critical domains: Development, DevOps, Security, and Penetration Testing. Each solution includes:
 
 - ✅ **Complete Business Context** (ROI, payback, risk analysis)
 - ✅ **Production-Ready Architecture** (diagrams, tech stack, trade-offs)
@@ -65,6 +65,21 @@ Arquitetura de Confidential Computing cross-cloud (AWS Nitro, Azure SEV-SNP, GCP
 
 ---
 
+### 4. 🛡️ Hacker Ético - Pentest SSRF & Broken Access Control
+
+**ROI: 25.9x | Score: 9.8/10**
+
+Blueprint enterprise-grade de penetration testing focado em SSRF e Broken Access Control (OWASP Top 10).
+
+- **Investment:** $35.25K
+- **Risk Mitigated:** $915K
+- **Payback:** 14 days
+- **Tech Stack:** Burp Suite Pro, SSRFmap, Interactsh, Semgrep, AWS IMDS
+
+[📖 Ver Detalhes Completos](specialists/hacker-pentest-ssrf.html)
+
+---
+
 ## 🚀 Quick Start
 
 ### Visualizar Localmente
@@ -90,7 +105,8 @@ ai-specialists-showcase/
 ├── specialists/
 │   ├── developer-websocket.html            # Página do Developer
 │   ├── devops-mlops.html                   # Página do DevOps
-│   └── security-confidential-computing.html # Página do Security
+│   ├── security-confidential-computing.html # Página do Security
+│   └── hacker-pentest-ssrf.html            # Página do Hacker Ético
 └── README.md                               # Este arquivo
 ```
 
@@ -100,9 +116,9 @@ ai-specialists-showcase/
 
 | Metric                  | Value           |
 | ----------------------- | --------------- |
-| **Total Specialists**   | 3               |
+| **Total Specialists**   | 4               |
 | **Max ROI**             | 367x (Security) |
-| **Total Lines of Code** | 5,000+          |
+| **Total Lines of Code** | 6,500+          |
 | **Production Ready**    | 100%            |
 | **Average Score**       | 9.83/10         |
 

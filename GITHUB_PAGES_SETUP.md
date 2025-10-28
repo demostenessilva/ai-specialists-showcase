@@ -15,6 +15,7 @@
 ## 🔧 Passo 1: Criar o Repositório no GitHub
 
 ### 1.1. Acesse o GitHub
+
 ```
 https://github.com/new
 ```
@@ -23,12 +24,12 @@ https://github.com/new
 
 **Campos a preencher:**
 
-| Campo | Valor |
-|-------|-------|
-| **Repository name** | `ai-specialists-showcase` |
-| **Description** | `🤖 AI Specialists Showcase - 3 Enterprise Solutions with ROI up to 367x` |
-| **Visibility** | ✅ Public |
-| **Initialize** | ⚠️ **NÃO** marcar nenhuma opção (sem README, sem .gitignore, sem license) |
+| Campo               | Valor                                                                     |
+| ------------------- | ------------------------------------------------------------------------- |
+| **Repository name** | `ai-specialists-showcase`                                                 |
+| **Description**     | `🤖 AI Specialists Showcase - 3 Enterprise Solutions with ROI up to 367x` |
+| **Visibility**      | ✅ Public                                                                 |
+| **Initialize**      | ⚠️ **NÃO** marcar nenhuma opção (sem README, sem .gitignore, sem license) |
 
 ### 1.3. Clicar em "Create repository"
 
@@ -49,12 +50,14 @@ git remote -v
 ```
 
 **Saída esperada:**
+
 ```
 origin  https://github.com/demostenessilva/ai-specialists-showcase.git (fetch)
 origin  https://github.com/demostenessilva/ai-specialists-showcase.git (push)
 ```
 
 Se não aparecer nada, adicionar o remote:
+
 ```bash
 git remote add origin https://github.com/demostenessilva/ai-specialists-showcase.git
 ```
@@ -66,6 +69,7 @@ git push -u origin main
 ```
 
 **Saída esperada:**
+
 ```
 Enumerating objects: 8, done.
 Counting objects: 100% (8/8), done.
@@ -93,6 +97,7 @@ https://github.com/demostenessilva/ai-specialists-showcase/settings
 - No menu lateral esquerdo, clicar em **"Pages"**
 
 Ou acesse diretamente:
+
 ```
 https://github.com/demostenessilva/ai-specialists-showcase/settings/pages
 ```
@@ -101,17 +106,18 @@ https://github.com/demostenessilva/ai-specialists-showcase/settings/pages
 
 **Build and deployment:**
 
-| Campo | Valor |
-|-------|-------|
+| Campo      | Valor                |
+| ---------- | -------------------- |
 | **Source** | Deploy from a branch |
-| **Branch** | `main` |
-| **Folder** | `/ (root)` |
+| **Branch** | `main`               |
+| **Folder** | `/ (root)`           |
 
 ### 3.4. Clicar em "Save"
 
 ### 3.5. Aguardar o Deploy (1-2 minutos)
 
 O GitHub vai mostrar uma mensagem:
+
 ```
 ✅ Your site is live at https://demostenessilva.github.io/ai-specialists-showcase/
 ```
@@ -182,6 +188,7 @@ Adicionar após o título:
 **Causa:** GitHub Pages ainda não terminou o build.
 
 **Solução:**
+
 1. Aguardar 2-3 minutos
 2. Verificar em: `https://github.com/demostenessilva/ai-specialists-showcase/actions`
 3. Se houver erro no workflow, verificar o log
@@ -191,6 +198,7 @@ Adicionar após o título:
 **Causa:** Caminho relativo incorreto no HTML.
 
 **Solução:**
+
 1. Verificar se `styles.css` está na raiz do projeto
 2. Verificar se os HTMLs em `specialists/` estão usando `../styles.css`
 
@@ -199,6 +207,7 @@ Adicionar após o título:
 **Causa:** Caminho relativo incorreto nos `<a href>`.
 
 **Solução:**
+
 1. No `index.html`, verificar se os links são:
    - `specialists/developer-websocket.html`
    - `specialists/devops-mlops.html`
@@ -214,12 +223,17 @@ Se quiser rastrear visitantes, adicionar no `<head>` de todos os HTMLs:
 
 ```html
 <!-- Google Analytics (Opcional) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-XXXXXXXXXX");
 </script>
 ```
 
@@ -279,4 +293,3 @@ O README já está otimizado para SEO e apresentação profissional!
 ---
 
 **Qualquer dúvida, é só chamar!** 🚀
-
